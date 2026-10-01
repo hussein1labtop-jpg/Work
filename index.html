@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>أعمال حسين التقنية — حلول رقمية للمعاهد</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14283C; --paper:#F2F5F7; --card:#FFFFFF; --teal:#0E7C7B; --amber:#D98E04;
+  --line:#D5DDE3; --muted:#5B6B7A;
+}
+@media (prefers-color-scheme:dark){
+  :root{--ink:#E8EEF3; --paper:#0F1B27; --card:#16263540; --teal:#3CC1BE; --amber:#F2B33D; --line:#2A3C4D; --muted:#97A8B8;}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Tajawal",system-ui,sans-serif;font-size:17px;line-height:1.8}
+.wrap{max-width:720px;margin:0 auto;padding:28px 18px 80px}
+h1,h2,h3{font-family:"Reem Kufi","Tajawal",sans-serif;margin:0;line-height:1.35}
+header{padding:24px 0 8px}
+h1{font-size:clamp(34px,9vw,52px);font-weight:700}
+.sub{color:var(--muted);margin:10px 0 0;max-width:34em}
+.hint{margin:28px 0 12px;font-weight:700;color:var(--teal)}
+
+/* project list */
+details{border-top:1px solid var(--line)}
+details:last-of-type{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:16px 4px;display:flex;align-items:center;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary .n{font-family:"Reem Kufi";font-size:21px;font-weight:600;flex:1}
+summary .t{font-size:14px;color:var(--muted)}
+summary::after{content:"+";font-size:26px;color:var(--teal);width:24px;text-align:center;transition:transform .2s}
+details[open] summary::after{content:"−"}
+summary:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.body{padding:2px 4px 26px}
+.body h3{font-size:17px;color:var(--teal);margin:14px 0 2px}
+.body p{margin:0}
+.btn{font:inherit;font-weight:700;border:0;border-radius:10px;padding:11px 20px;cursor:pointer;background:var(--teal);color:#fff;text-decoration:none;display:inline-block}
+
+/* rating */
+.rate{margin-top:20px;padding-top:16px;border-top:1px dashed var(--line)}
+.rate label{font-weight:700;display:block;margin-bottom:4px}
+.stars{display:flex;gap:2px;direction:ltr;justify-content:flex-end}
+.stars button{background:none;border:0;font-size:32px;line-height:1;color:var(--line);cursor:pointer;padding:2px 3px}
+.stars button.on{color:var(--amber)}
+textarea,input[type=text]{width:100%;font:inherit;padding:11px 13px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+textarea{min-height:76px;resize:vertical;margin-top:8px}
+
+/* contact */
+.contact{margin-top:44px;padding:24px 20px;border-radius:16px;background:var(--ink);color:var(--paper)}
+@media (prefers-color-scheme:dark){.contact{background:#1B3043;color:#E8EEF3}}
+.contact h2{font-size:26px}
+.contact p{margin:8px 0 16px;opacity:.85}
+.contact input{background:#fff;color:#14283C;margin-bottom:10px}
+.contact .btn{background:var(--amber);color:#14283C;width:100%;font-size:18px}
+.contact .btn.alt{background:transparent;color:inherit;border:1.5px solid rgba(255,255,255,.4);text-align:center;margin-top:10px;font-size:17px}
+.err{color:#ffb4a8;min-height:1.6em;margin:0 0 8px;font-size:15px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>أنظمة جاهزة<br>تشتغل بمعهدك</h1>
+    <p class="sub">أنا حسين، أشتغل مع أكثر من معهد بالأنظمة والتقنية. هذي نماذج من شغلي، اطلع عليها وقيّمها، وإذا تريد استفسار أو عرض سعر تواصل وياي مباشرة. أسعاري مناسبة جداً.</p>
+  </header>
+
+  <p class="hint">اضغط على اسم المشروع حتى تشوف الشرح</p>
+  <div id="list"></div>
+
+  <section class="contact" id="contact">
+    <h2>تريد نشتغل سوا؟</h2>
+    <p>اكتب اسم معهدك، وبالضغط على إرسال تنفتح عندك رسالة واتساب جاهزة تدزها لي مباشرة، وبعدها نتفق على الشغل المطلوب. الأسعار مناسبة جداً وتختلف حسب حجم المعهد.</p>
+    <input type="text" id="inst" placeholder="اسم المعهد" autocomplete="organization">
+    <input type="text" id="note" placeholder="شنو تحتاج بالمعهد؟ (اختياري)">
+    <p class="err" id="err" role="alert"></p>
+    <button class="btn" id="send" type="button">إرسال عبر واتساب</button>
+    <a class="btn alt" id="ask" target="_blank" rel="noopener">استفسار سريع بدون تعبئة</a>
+  </section>
+</div>
+
+<script>
+/* ============ إعدادات — عدّل هنا فقط ============ */
+const WA_NUMBER = "9647XXXXXXXXX";   // رقمك بصيغة دولية بدون + (مثال: 9647701234567)
+const MY_NAME   = "حسين";
+
+const PROJECTS = [
+  {
+    name: "نظام تسجيل الرحلات الطلابية",
+    tag: "تسجيل وإدارة",
+    what: "صفحة يفتحها الطالب من موبايله ويسجل اسمه ببيانات الرحلة، والإدارة تشوف كل المسجلين بقائمة وحدة بدون ورق ولا اتصالات.",
+    serves: "ينهي فوضى تسجيل الرحلات بالواتساب والأوراق، ويعطي الإدارة عدد دقيق ومرتب بأي لحظة."
+  },
+  {
+    name: "نظام الأقساط والتبليغ الآلي لأولياء الأمور",
+    tag: "أقساط + واتساب",
+    what: "لوحة لإدارة أقساط الطلبة مرتبطة بواتساب الرسمي (Meta). كل ما يتسجل قسط أو يقترب موعده تروح رسالة تلقائية لولي الأمر. تشتغل مع جهاز ESP32 وجدول Google Sheets لحفظ السجل.",
+    serves: "يوفر وقت المحاسب، ويقلل التأخر بالدفع لأن ولي الأمر يوصله تذكير بدون ما أحد يدزه يدوياً."
+  },
+  {
+    name: "دليل الكادر (صفحة روابط)",
+    tag: "تعريف بالكادر",
+    what: "صفحة وحدة فيها كل روابط ومعلومات تواصل الكادر والأقسام، مرتبة وتنفتح من أي موبايل برابط واحد.",
+    serves: "الطالب وولي الأمر يلكون الشخص أو القسم المطلوب بثواني، والمعهد يبين منظم."
+  },
+  {
+    name: "بوت تيليجرام للأسئلة الدراسية",
+    tag: "ذكاء اصطناعي",
+    what: "بوت يجاوب أسئلة الطلبة (مثلاً الكيمياء) من مصادر المعهد نفسها المرتبة حسب الفصول، وفيه لوحة إدارة ترسل إعلانات لكل مستخدمي البوت.",
+    serves: "الطالب ياخذ جواب فوري بأي وقت، والمدرس يتفرغ للشرح، والمعهد عنده قناة تبليغ مباشرة."
+  },
+  {
+    name: "أداة تقسيم البوسترات للطباعة",
+    tag: "تصميم وطباعة",
+    what: "ترفع صورة بوستر كبير والأداة تقسمها لصفحات A4 جاهزة للطباعة بملف PDF، تلصقها وتطلع لوحة كبيرة.",
+    serves: "تطبع بوسترات وإعلانات كبيرة بطابعة المعهد العادية بدون ما تروح للمطبعة."
+  },
+  {
+    name: "تطبيق الحضور والغياب",
+    tag: "حضور وغياب",
+    what: "تضيف الطلبة حسب الشعبة، وتسجل الحضور والغياب اليومي بضغطة، وتشوف سجل الأيام وتصدّر إكسل أو تطبع PDF.",
+    serves: "يعوض دفتر الغياب الورقي، ويسهل متابعة غياب كل طالب وإبلاغ أهله."
+  },
+  {
+    name: "منصة تعليم إلكتروني (قيد التطوير)",
+    tag: "LMS",
+    what: "منصة وتطبيق أندرويد لعرض المحاضرات المسجلة بصلاحيات حسب الاشتراك، مع علامة مائية على الفيديو لحمايته، وتبليغات واتساب.",
+    serves: "المعهد يوصل لطلابه خارج القاعة، وتنحمى محاضراته من التسريب."
+  },
+  {
+    name: "الشبكات والإنترنت",
+    tag: "خدمة ميدانية",
+    what: "تأسيس وصيانة شبكة المعهد: راوترات، تغطية واي فاي لكل القاعات، وربط الأجهزة والطابعات.",
+    serves: "إنترنت مستقر بكل مكان بالمعهد وأقل أعطال."
+  }
+];
+/* ================================================ */
+
+const state = PROJECTS.map(() => ({ stars: 0, comment: "" }));
+const list = document.getElementById("list");
+
+PROJECTS.forEach((p, i) => {
+  const d = document.createElement("details");
+  d.name = "proj";
+  d.innerHTML = `
+    <summary><span class="n">${p.name}</span><span class="t">${p.tag}</span></summary>
+    <div class="body">
+      <h3>شنو هو؟</h3><p>${p.what}</p>
+      <h3>شنو يخدم بالضبط؟</h3><p>${p.serves}</p>
+      <div class="rate">
+        <label>شنو رأيك بالمشروع؟</label>
+        <div class="stars" role="group" aria-label="التقييم">
+          ${[1,2,3,4,5].map(n => `<button type="button" data-star="${i}:${n}" aria-label="${n} من 5">★</button>`).join("")}
+        </div>
+        <textarea data-c="${i}" placeholder="ملاحظتك أو رأيك (اختياري)"></textarea>
+      </div>
+    </div>`;
+  list.appendChild(d);
+});
+
+list.addEventListener("click", e => {
+  const s = e.target.closest("[data-star]");
+  if (s) {
+    const [i, n] = s.dataset.star.split(":").map(Number);
+    state[i].stars = (state[i].stars === n) ? 0 : n;
+    s.parentElement.querySelectorAll("button").forEach((b, k) => b.classList.toggle("on", k < state[i].stars));
+  }
+});
+list.addEventListener("input", e => {
+  if (e.target.dataset.c !== undefined) state[+e.target.dataset.c].comment = e.target.value.trim();
+});
+
+document.getElementById("ask").href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("السلام عليكم، شفت أعمالك وعندي استفسار.")}`;
+document.getElementById("send").onclick = () => {
+  const inst = document.getElementById("inst").value.trim();
+  const note = document.getElementById("note").value.trim();
+  const err = document.getElementById("err");
+  if (!inst) { err.textContent = "اكتب اسم المعهد أولاً."; document.getElementById("inst").focus(); return; }
+  if (WA_NUMBER.includes("X")) { err.textContent = "رقم الواتساب غير مضبوط بالملف."; return; }
+  err.textContent = "";
+
+  let msg = `السلام عليكم أستاذ ${MY_NAME} 🌹\nأنا من معهد: ${inst}\nشفت أعمالك وحبيت نتفق على الشغل المطلوب.\n`;
+  if (note) msg += `\nاحتياجنا: ${note}\n`;
+  const rated = PROJECTS.map((p, i) => ({ p, s: state[i] })).filter(x => x.s.stars || x.s.comment);
+  if (rated.length) {
+    msg += `\nرأيي بالمشاريع:\n`;
+    rated.forEach(({ p, s }) => {
+      msg += `• ${p.name}${s.stars ? " — " + "★".repeat(s.stars) + "☆".repeat(5 - s.stars) : ""}${s.comment ? "\n  " + s.comment : ""}\n`;
+    });
+  }
+  msg += `\nمتى يناسبك نحجي؟`;
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+};
+</script>
+</body>
+</html>
